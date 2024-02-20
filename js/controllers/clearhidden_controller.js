@@ -81,16 +81,20 @@ application.register('clear-hidden', class extends Stimulus.Controller {
 					case "radio":
 						//If a default is selected then check that.
 						if (
-							element.parent
+							element.parentElement
 							&&
-							element.parent.hasAttribute("data-default-value")
+							element.parentElement.hasAttribute("data-default-value")
 							&&
-							element.parent.getAttribute("data-default-value") == element.value
+							element.parentElement.getAttribute("data-default-value") == element.value
 						) {
 							element.checked = true;
 						} else {
 							element.checked = false;
 						}
+					break;
+					case "submit":
+					case "button":
+						//Do nothing.
 					break;
 					default:
 						element.value = '';
