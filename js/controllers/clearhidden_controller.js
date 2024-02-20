@@ -12,9 +12,15 @@ application.register('clear-hidden', class extends Stimulus.Controller {
 
 	}
 
+	disconnect() {
+		if ( this.observer ) {
+			this.observer.disconnect();
+		}
+	}
+
 	config() {
 
-		let observer = new MutationObserver(
+		this.observer = new MutationObserver(
 			(mutations) => this.mutationListener(mutations)
 		);
 
@@ -39,7 +45,7 @@ application.register('clear-hidden', class extends Stimulus.Controller {
 
 		//Ability to clear elements as they are hidden
 		if ( this.element.hasAttribute("data-clear-hidden-on") && this.element.getAttribute("data-clear-hidden-on") == "hide" ) {
-			observer.observe(
+			this.observer.observe(
 				this.element,
 				{
 					attributeFilter: ['hidden','style']
