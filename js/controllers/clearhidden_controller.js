@@ -79,16 +79,21 @@ application.register('clear-hidden', class extends Stimulus.Controller {
 				switch ( element.type ) {
 					case "checkbox":
 					case "radio":
-						element.checked = false;
-					break;
-				default:
-					element.value = '';
+						//If a default is selected then check that.
+						if ( element.parent.hasAttribute("data-default-value") && element.parent.getAttribute("data-default-value") == element.value ) {
+							element.checked = true;
+						} else {
+							element.checked = false;
 						}
-			default:
+					break;
+					default:
+						element.value = '';
+				}
+			break;
+			case "select":
+			case "textarea":
 				element.value = '';
 		}
-		
-
 	}
 
 	//I clear all of the hidden elements in this controller.
