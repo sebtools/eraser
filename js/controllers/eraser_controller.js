@@ -1,5 +1,5 @@
 
-application.register('clear-hidden', class extends Stimulus.Controller {
+application.register('eraser', class extends Stimulus.Controller {
 
 
 	initialize() {
@@ -12,46 +12,46 @@ application.register('clear-hidden', class extends Stimulus.Controller {
 
 	}
 
-	disconnect() {
-		if ( this.observer ) {
-			this.observer.disconnect();
-		}
-	}
-
 	config() {
+		var actionAtt = "data-eraser-clearhidden-on";
+		var onAtt = "eraser#clearHidden";
 
-		this.observer = new MutationObserver(
+		let observer = new MutationObserver(
 			(mutations) => this.mutationListener(mutations)
 		);
-
-		//IF the controller is directly on the form, then automaticall set the action
-		if ( this.element.tagName.toLowerCase() == "form" ) {
-			if ( this.element.hasAttribute("data-action") ) {
-				//Prepend clear action to form if it isn't already there
-				var action = this.element.getAttribute("data-action");
-				if ( !action.includes("clear-hidden#clearHidden") ) {
-					this.element.setAttribute(
-						"data-action",
-						"clear-hidden#clearHidden " + action
+		
+		if ( this.element.hasAttribute(onAtt) ) {
+			switch( this.element.getAttribute(onAtt).toLowerCase() ) {
+				case "hide":
+					observer.observe(
+						this.element,
+						{
+							attributeFilter: ['hidden','style']
+							,subtree: true
+						}
 					);
-				}
-			} else {
-				//Simply set it if no data-action already exists
-				this.element.setAttribute("data-action","clear-hidden#clearHidden");
+				break
+				case "submit":
+					if ( this.element.tagName.toLowerCase() != "form" ) {
+						console.error(onAtt + ' value of "submit" can only be placed on a form.');
+					}
+					if ( this.element.hasAttribute("data-action") ) {
+						//Prepend clear action to form if it isn't already there
+						var action = this.element.getAttribute("data-action");
+						if ( !action.includes(actionAtt) ) {
+							this.element.setAttribute(
+								"data-action",
+								actionAtt + " " + action
+							);
+						}
+					} else {
+						//Simply set it if no data-action already exists
+						this.element.setAttribute("data-action",actionAtt);
+					}
+				default:
+					console.log('Valid values for ' + actionAtt + ' are "hide" or "submit".')
+				break;
 			}
-		} else {
-			console.log("clear-hidden is designed to be attached to a form element.");
-		}
-
-		//Ability to clear elements as they are hidden
-		if ( this.element.hasAttribute("data-clear-hidden-on") && this.element.getAttribute("data-clear-hidden-on") == "hide" ) {
-			this.observer.observe(
-				this.element,
-				{
-					attributeFilter: ['hidden','style']
-					,subtree: true
-				}
-			);
 		}
 
 	}
@@ -98,6 +98,13 @@ application.register('clear-hidden', class extends Stimulus.Controller {
 							element.checked = false;
 						}
 					break;
+					case "select":
+						element.value = "";
+						
+						var event = new Event('change', { bubbles: true });
+						element.dispatchEvent(event);
+						
+						break;
 					case "submit":
 					case "button":
 						//Do nothing.
@@ -110,6 +117,17 @@ application.register('clear-hidden', class extends Stimulus.Controller {
 			case "textarea":
 				element.value = '';
 		}
+	}
+
+	clearAll() {
+		var scope = this.element;
+
+		if ( event && event.target ) {
+			scope = event.target;
+		}
+
+		this.clearScope(scope);
+		
 	}
 
 	//I clear all of the hidden elements in this controller.
