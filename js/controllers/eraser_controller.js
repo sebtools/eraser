@@ -7,14 +7,14 @@ application.register('eraser', class extends Stimulus.Controller {
 	}
 
 	connect() {
-
+		
 		this.config();
 
 	}
 
 	config() {
-		var actionAtt = "data-eraser-clearhidden-on";
-		var onAtt = "eraser#clearHidden";
+		var onAtt = "data-eraser-clearhidden-on";
+		var actionAtt = "submit->eraser#clearHidden";
 
 		let observer = new MutationObserver(
 			(mutations) => this.mutationListener(mutations)
@@ -48,8 +48,9 @@ application.register('eraser', class extends Stimulus.Controller {
 						//Simply set it if no data-action already exists
 						this.element.setAttribute("data-action",actionAtt);
 					}
+				break;
 				default:
-					console.log('Valid values for ' + actionAtt + ' are "hide" or "submit".')
+					console.log('Valid values for ' + onAtt + ' are "hide" or "submit".')
 				break;
 			}
 		}
@@ -131,26 +132,27 @@ application.register('eraser', class extends Stimulus.Controller {
 	}
 
 	//I clear all of the hidden elements in this controller.
-	clearHidden() {
+	clearHidden(event) {
 		var aElems = this.getHiddenFields(this.element);
 
 		for ( var elem of aElems ) {
-			clearElement(elem);
+			this.clearElement(elem);
 		}
 		
 	}
 
 	//I clear all of the form fields in the given scope (element)
 	getHiddenFields(scope) {
+		var controller = this;
 		var aResults = [];
 	
 		// Select all form fields
-		var aFields = getScopeFields(scope);
+		var aFields = this.getScopeFields(scope);
 	
 		// Check each form field and its ancestors for visibility
 		aFields.forEach(function(field) {
 			var element = field;
-			var isVisible = isElementVisible(field);
+			var isVisible = controller.isElementVisible(field);
 	
 			// If the field or any of its ancestors are hidden, add it to the list
 			if ( !isVisible ) {
