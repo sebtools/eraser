@@ -177,12 +177,8 @@ application.register('eraser', class extends Stimulus.Controller {
 		}
 
 		// Check if any of the field's ancestors are hidden
-		while ( element.parentElement ) {
-			element = element.parentElement;
-
-			if ( element.hidden || element.style.display === 'none' || element.style.visibility === 'hidden' ) {
-				return false;
-			}
+		if ( element.parentElement ) {
+			return this.isElementVisible(element.parentElement);
 		}
 
 		return true;
