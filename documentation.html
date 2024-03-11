@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Eraser Controller Documentation</title>
+	<link rel="stylesheet" type="text/css" href="documentation.css">
+</head>
+<body>
+
+	<h1>Eraser Controller</h1>
+
+	<p>Eraser Controller is a <a href="https://stimulus.hotwired.dev/">Stimulus</a> controller for clearing out form fields.</p>
+
+	<p>The controller will define hidden fields as any field that has a "hidden" attribute of true or that has a "display" style of "none" or a "visibility" of "hidden". It does not define hidden based on the location of the element.</p>
+
+	<h2>Attributes</h2>
+
+	<h3><span class="attprefix">data-</span> Attributes</h3>
+
+	<p>All of these attributes are prefixed with "data-" in the attribute name.</p>
+
+	<table class="atts">
+		<thead>
+			<tr>
+				<th>Attribute</th>
+				<th>Element(s)</th>
+				<th>Default</th>
+				<th>Value(s)</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>controller</td>
+				<td>
+					*
+				</td>
+				<td></td>
+				<td>eraser</td>
+				<td>
+					This attribute provides the eraser functionality.
+				</td>
+			</tr>
+
+			<tr>
+				<td>action</td>
+				<td>
+					form<br>
+				</td>
+				<td></td>
+				<td>eraser#clearHidden</td>
+				<td>
+					This may be set by the controller on the form element based on the data-eraser-clearhidden-on attribute.
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	<h3><span class="attprefix">data-eraser-</span> Attributes</h3>
+
+	<p>All of these attributes are prefixed with "data-eraser-" in the attribute name.</p>
+
+	<table class="atts">
+		<thead>
+			<tr>
+				<th>Attribute</th>
+				<th>Element(s)</th>
+				<th>Default</th>
+				<th>Value(s)</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr>
+				<td rowspan="2">clearhidden-on</td>
+				<td>*</td>
+				<td></td>
+				<td>
+					hide
+				</td>
+				<td>
+					Clears hidden elements as they are hidden.
+				</td>
+			</tr>
+			<tr>
+				<td>form</td>
+				<td></td>
+				<td>
+					submit
+				</td>
+				<td>
+					Clears hidden elements only when the form is submitted.
+				</td>
+			</tr>
+
+
+		</tbody>
+	</table>
+
+
+</body>
+</html>
