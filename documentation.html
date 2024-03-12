@@ -11,11 +11,13 @@
 
 	<p>Eraser Controller is a <a href="https://stimulus.hotwired.dev/">Stimulus</a> controller for clearing out hidden form fields. This does *not* empty out fields of type="hidden", but rather other form fields that are hidden by either CSS or the "hidden" HTML attribute.</p>
 
+	<p>It can either clear fields as they are hidden or when the form is submitted.</p>
+
 	<p>The controller will define hidden fields as any field that has a "hidden" attribute of true or that has a "display" style of "none" or a "visibility" of "hidden". It does not define hidden based on the location of the element.</p>
 
 	<h2>Attributes</h2>
 
-	<h3><span class="attprefix">data-</span> Attributes</h3>
+	<h3><span class="prefix">data-</span> Attributes</h3>
 
 	<p>All of these attributes are prefixed with "data-" in the attribute name.</p>
 
@@ -57,7 +59,7 @@
 		</tbody>
 	</table>
 
-	<h3><span class="attprefix">data-eraser-</span> Attributes</h3>
+	<h3><span class="prefix">data-eraser-</span> Attributes</h3>
 
 	<p>All of these attributes are prefixed with "data-eraser-" in the attribute name.</p>
 
@@ -99,6 +101,59 @@
 		</tbody>
 	</table>
 
+
+	<h2>Events</h2>
+
+	<p>These are custom events that the controller will fire when it takes certain actions.</p>
+
+	<h3><span class="prefix">eraser:</span> Events</h3>
+
+	<p>All of these events are prefixed by "eraser:".</p>
+
+	<table class="evts">
+		<thead>
+			<tr>
+				<th>Event</th>
+				<th>Parameters</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>initialized</td>
+				<td>
+				</td>
+				<td>
+					Called any time that the controller is initialized.
+				</td>
+			</tr>
+			<tr>
+				<td>connected</td>
+				<td>
+				</td>
+				<td>
+					Called any time that the controller is connected.
+				</td>
+			</tr>
+			<tr>
+				<td>disconnected</td>
+				<td>
+				</td>
+				<td>
+					Called any time that the controller is disconnected.
+				</td>
+			</tr>
+			<tr>
+				<td>cleared</td>
+				<td>
+					<p>target: (the element that is cleared)</p>
+				</td>
+				<td>
+					Called any time that the controller clears the value from an element.
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
 </body>
 </html>

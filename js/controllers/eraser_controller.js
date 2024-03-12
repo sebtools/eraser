@@ -3,12 +3,22 @@ application.register('eraser', class extends Stimulus.Controller {
 
 
 	initialize() {
+		
+		this.dispatch("initialized");
 
 	}
 
 	connect() {
 		
 		this.config();
+
+		this.dispatch("connected");
+
+	}
+
+	disconnect() {
+
+		this.dispatch("disconnected");
 
 	}
 
@@ -102,6 +112,7 @@ application.register('eraser', class extends Stimulus.Controller {
 					case "select":
 						element.value = "";
 						
+						//Changing the select as above does not dispatch the change event, so kicking that off manually.
 						var event = new Event('change', { bubbles: true });
 						element.dispatchEvent(event);
 						
@@ -118,6 +129,14 @@ application.register('eraser', class extends Stimulus.Controller {
 			case "textarea":
 				element.value = '';
 		}
+		
+		this.dispatch(
+			"cleared",
+			{
+				target: element
+			}
+		);
+
 	}
 
 	clearAll() {

@@ -1,15 +1,23 @@
-.attprefix {
+.planned, .planned * {
+	background-color:lightcoral;
+	background-color:#f39393;
+	background-color:#FFAA33;
+	background-color: #FFBF00;
+}
+.prefix {
 	background-color: #e3e3e3;
 }
 
-table.atts {
-    border-collapse: collapse;
-    border: 2px solid gray;
+table.atts, table.evts {
+	border-collapse: collapse;
+	border: 2px solid gray;
 	width:1000px;
 }
 
 table.atts th,
-table.atts td {
+table.atts td,
+table.evts th,
+table.evts td {
     padding: 6px;
 	padding-right:10px;
 	text-align:left;
@@ -18,7 +26,9 @@ table.atts td {
 }
 
 table.atts th p,
-table.atts td p {
+table.atts td p,
+table.evts th p,
+table.evts td p {
 	margin-top:0;
 }
 
@@ -32,3 +42,4 @@ table.atts th:nth-child(4),
 table.atts td:nth-child(4) {
 	white-space: nowrap;
 }
+
